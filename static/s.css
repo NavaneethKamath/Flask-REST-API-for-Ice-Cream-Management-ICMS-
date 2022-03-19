@@ -1,0 +1,77 @@
+h1, h2, h3, h4 { font-family: Sansita, serif }
+p { font-size: smaller }
+ul { position: relative; top: 20px;  }
+footer {
+    
+    left:0px;
+    position: fixed;
+    bottom:0px;
+    height:50px;
+    width:100%;
+    background: gray;
+ }
+ button{
+     margin-left:5px;
+     margin-right:5px;
+ }
+ table,h3{
+    margin-left: 5px;
+    margin-right: 5px;
+    
+ }
+ a{
+    margin-top: 5px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom: 5px;
+    font-size: large;
+ }
+ body {
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: #f7f9fb;
+ }
+ 
+ * {
+   box-sizing: border-box;
+ }
+ 
+ /* Add padding to containers */
+ .container {
+   padding: 16px;
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: #f7f9fb;
+ }
+ 
+ /* Full-width input fields */
+ input[type=text], input[type=password],input[type=number],input[type=tel] {
+   width: 100%;
+   padding: 15px;
+   margin: 5px 0 22px 0;
+   display: inline-block;
+   border: none;
+   background: #f1f1f1;
+ }
+ 
+ input[type=text]:focus, input[type=password]:focus {
+   background-color: #ddd;
+   outline: none;
+ }
+ 
+ /* Overwrite default styles of hr */
+ hr {
+   border: 1px solid #f1f1f1;
+   margin-bottom: 25px;
+ }
+ 
+ /* Set a style for the submit button */
+
+ /* Add a blue text color to links */
+ a {
+   color: dodgerblue;
+ }
+ 
+ /* Set a grey background color and center the text of the "sign in" section */
+ .signin {
+   background-color: #f1f1f1;
+   text-align: center;
+ }

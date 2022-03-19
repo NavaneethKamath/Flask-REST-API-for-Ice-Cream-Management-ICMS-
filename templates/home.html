@@ -1,0 +1,89 @@
+{% extends "layout2.html" %}
+{% block head %}
+{{ super() }}
+<title> Home </title>
+<style>
+    .flex-container {
+        display: flex;
+        flex: 1 0 21%;
+        flex-wrap: wrap;
+    }
+
+    .flex-container>div {
+        background-color: #f1f1f1;
+        flex: 1 0 21%;
+        width: 200px;
+        margin: 10px;
+        text-align: center;
+        line-height: 25px;
+        font-size: 20px;
+    }
+
+    .buy {
+        margin-top: 20px;
+        font-size: larger;
+    }
+</style>
+{% endblock %}
+{% block user %}
+               {% if user %}
+               <li><a href="/user/id={{email}}"> Hello, {{user}} </a></li>
+
+               {% else %}
+               <li><a href="/login"> Login </a></li>
+
+               {% endif %}
+               {% endblock %}
+
+               {% block log %}
+               {% if user %}
+               <li><a href="/myorders"> My Orders </a></li>
+               <li><a href="/logout"> Logout </a></li>
+               {% endif %}
+               {% endblock %}
+
+{% block content %}
+
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Available Products</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="flex-container">
+                        {% for t in op %}
+                        <div>
+
+                            <p style="font-size: x-large;color: maroon;font-family: Georgia, 'Times New Roman', Times, serif;">{{ t.prod_name }}</p>
+                            <p style="font-size:large ;color:black;">Rs. {{ t.rate }}/-</p>
+                            <img src={{ t.img_name }} width="200" height="200">
+                            <p class="buy"> <button class="btn btn-success btn-lg active"
+                                    onclick="window.location.href = '/buy/id={{ t.prod_id }}';">BUY NOW </button></p>
+                        </div>
+                        {% endfor %}
+                       
+                
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- /.content -->
+{% endblock %}

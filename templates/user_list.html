@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<title> Users </title>
+<script>
+    function exportData() {
+        var table = document.getElementById("users");
+        var rows = [];
+
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            column1 = row.cells[0].innerText;
+            column2 = row.cells[1].innerText;
+            column3 = row.cells[2].innerText;
+            column4 = row.cells[3].innerText;
+            column5 = row.cells[4].innerText;
+            rows.push(
+                [
+                    column1,
+                    column2,
+                    column3,
+                    column4,
+                    column5,
+                ]
+            );
+
+        }
+        csvContent = "data:text/csv;charset=utf-8,";
+        rows.forEach(function (rowArray) {
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "users.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+<link rel="stylesheet" href="/static/s.css">
+{% endblock %}
+{% block content %}
+
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Users of ICMS</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <div class="form-group">
+                            {% if status == -1 %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+
+                            {% if status == 1 %}
+                            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+
+                        </div>
+                        <table id="users" class="table table-hover text-nowrap" >
+                            <thead>
+                                <tr>
+
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Address</th>
+                                    <th>Account Type</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in users %}
+                                <tr style="line-height: 20px;">
+                                    <td>{{ t.name }}</td>
+                                    <td>{{ t.email }}</td>
+                                    <td>{{ t.mobile }}</td>
+                                    <td>{{ t.address }}</td>
+                                    <td>{{ t.user_type }}</td>
+                                    <td>
+                                        <form role="form" action="/userlist" method="post" enctype="multipart/form-data">
+                                        {% if t.user_type == "customer" %}
+                                        <div class="card-footer" >
+                                            <input type="hidden" id="auth" name="auth" value="100">
+                                            <input type="hidden" id="userd" name="userd" value="{{ t.email }}">
+                                            <button type="submit" class="btn btn-success btn-sm">Authorize</button>
+                                        </div>
+                                    
+                                        {% else %}
+                                        <div class="card-footer" >
+                                            <input type="hidden" id="auth" name="auth" value="300">
+                                            <input type="hidden" id="userd" name="userd" value="{{ t.email }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Unauthorize</button>
+                                        </div>
+                                        {% endif %}
+                                    </form>
+                                    </td>
+                                    
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<button onclick="exportData()" class="btn btn-info" >DOWNLOAD</button>
+
+
+<!-- /.content -->
+{% endblock %}

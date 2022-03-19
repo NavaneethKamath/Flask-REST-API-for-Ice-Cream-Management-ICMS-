@@ -1,0 +1,121 @@
+{% extends "layout2.html" %}
+{% block head %}
+{{ super() }}
+<title>Order</title>
+{% endblock %}
+{% block user %}
+               {% if user %}
+               <li><a href="/user/id={{email}}"> Hello, {{user}} </a></li>
+
+               {% else %}
+               <li><a href="/login"> Login </a></li>
+
+               {% endif %}
+               {% endblock %}
+
+               {% block log %}
+               {% if user %}
+               <li><a href="/myorders"> My Orders </a></li>
+               <li><a href="/logout"> Logout </a></li>
+               {% endif %}
+               {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+{% if userf==0 %}
+<form role="form" action="/buy/id={{prod[0].prod_id}}" method="post">
+    <div class="container">
+        <h1>Enter Quantity </h1>
+        <hr>
+
+        <label><b>Product Name:</b> {{prod[0].prod_name}}</label><br>
+
+
+        <label for="quantity"><b>Enter quantity:</b></label>
+        <input type="number" placeholder="Quantity" name="quantity" id="quantity" min="1" max="{{prod[0].quantity}}" required>
+        <input type="hidden" id="fp" name="fp" value="300">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Generate Invoice</button>
+    </div>
+</form>
+{% else %}
+
+
+<div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
+    <div class="card">
+        <div class="card-header p-4">
+            
+            <div class="float-right">
+                <h3 class="mb-0">Invoice #{{invoice}}</h3>
+
+                Date: {{date}}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <br>
+                    <h4 class="mb-3">Customer Details:</h4>
+                    <h3 class="text-dark mb-1" style="margin-left:0px;">{{userf[0].name}}</h3>
+                    <div>{{userf[0].address}}</div>
+                    <div>Email: {{userf[0].email}}</div>
+                    <div>Phone: {{userf[0].mobile}}</div>
+                    <br>
+                </div>
+                <div class="col-sm-6 ">
+    
+                    <h3 class="text-dark mb-1">CASH ON DELIVERY</h3>
+                </div>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="center">#</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th class="right">Price</th>
+                            <th class="center">Qty</th>
+                            <th class="right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center">1</td>
+                            <td class="left strong">{{prod[0].prod_name}}</td>
+                            <td class="left">{{prod[0].prod_type}}</td>
+                            <td class="right">{{prod[0].rate}}</td>
+                            <td class="center">{{quan}}</td>
+                            <td class="right">{{prod[0].rate*quan}}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-5">
+                </div>
+                <div class="col-lg-4 col-sm-5 ml-auto">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <table class="table table-clear">
+                        <tbody>
+                                <td class="left">
+                                    <strong class="text-dark">Total</strong>
+                                </td>
+                                <td class="right">
+                                    <strong class="text-dark">Rs.{{prod[0].rate*quan}}/-</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

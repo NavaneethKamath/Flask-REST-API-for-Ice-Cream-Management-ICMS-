@@ -1,0 +1,86 @@
+{% extends "layout2.html" %}
+{% block head %}
+{{ super() }}
+<title> Profile </title>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        font-size:large;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    td,th {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f7f9fb;
+    }
+</style>
+{% endblock %}
+{% block user %}
+{% if user %}
+<li><a href="/user/id={{email}}"> Hello, {{user}} </a></li>
+
+{% else %}
+<li><a href="/login"> Login </a></li>
+
+{% endif %}
+{% endblock %}
+
+{% block log %}
+{% if user %}
+<li><a href="/myorders"> My Orders </a></li>
+<li><a href="/logout"> Logout </a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="flex-container">
+                        <table>
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{valu[0].name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Mobile:</th>
+                                <td>{{valu[0].mobile}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{valu[0].email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{{valu[0].address}}</td>
+                            </tr>
+                            <tr>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- /.content -->
+{% endblock %}

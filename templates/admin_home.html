@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<title> Home </title>
+<style>
+    .flex-container {
+        display: flex;
+        flex: 1 0 21%;
+        flex-wrap: wrap;
+    }
+
+    .flex-container>div {
+        background-color: #f1f1f1;
+        flex: 1 0 21%;
+        width: 200px;
+        margin: 10px;
+        text-align: center;
+        line-height: 25px;
+        font-size: 20px;
+    }
+
+    .buy {
+        margin-top: 20px;
+        font-size: larger;
+    }
+</style>
+
+<link rel="stylesheet" href="/static/s.css">
+{% endblock %}
+{% block content %}
+
+
+<!-- Main content -->
+<h3>Welcome to ADMIN CONSOLE of ICMS,</h3>
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title" style="margin-left: 10px;">Our Products</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="flex-container">
+                        {% for t in op %}
+                        <div>
+
+                            <p>{{ t.prod_name }}</p>
+                            <p>Rs. {{ t.rate }}/-</p>
+                            <img src={{ t.img_name }} width="200" height="200">
+                        </div>
+                        {% endfor %}
+                       
+                
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- /.content -->
+{% endblock %}

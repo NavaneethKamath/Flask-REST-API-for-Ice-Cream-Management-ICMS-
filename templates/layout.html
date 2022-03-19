@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      {% block head %}
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+      <link rel="stylesheet" href="/static/s.css">
+      
+   {% endblock %}
+   </head>
+   <body>
+      <nav class="navbar navbar-inverse">
+         <div >
+            <a class="navbar navbar-text" href="/admin_home">
+               <h3 class="title"> ICE-CREAM MANAGEMENT SYSTEM </h3>
+            </a>
+            <ul class="nav navbar-nav pull-right">
+               <li><a href="/admin_home"> Home </a></li>
+               <li><a href="/stock"> Stock </a></li>
+               <li><a href="/userlist"> Users </a></li>
+               <li><a href="/orderlist"> Orders </a></li>
+               <li><a href="/logout_admin"> Logout </a></li>
+               {% block user %}
+               
+               {% endblock %}
+            </ul>
+         </div>
+      </nav>
+      <div id="content">{% block content %}{% endblock %}</div>
+
+      
+      
+      <br>
+      
+      <footer>
+         <br>
+         <p class="text-center small"> ICMS | 2021 </p>
+      </footer>
+
+   </body>
+</html>

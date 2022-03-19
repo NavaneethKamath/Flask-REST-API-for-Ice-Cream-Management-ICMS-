@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<title> Stock </title>
+<script>
+    function exportData() {
+        var table = document.getElementById("stock");
+        var rows = [];
+
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            column1 = row.cells[0].innerText;
+            column2 = row.cells[1].innerText;
+            column3 = row.cells[2].innerText;
+            column4 = row.cells[3].innerText;
+            column5 = row.cells[4].innerText;
+            column6 = row.cells[5].innerText;
+            column7 = row.cells[6].innerText;
+            column8 = row.cells[7].innerText;
+            rows.push(
+                [
+                    column1,
+                    column2,
+                    column3,
+                    column4,
+                    column5,
+                    column6,
+                    column7,
+                    column8
+                ]
+            );
+
+        }
+        csvContent = "data:text/csv;charset=utf-8,";
+        rows.forEach(function (rowArray) {
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "stock.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+<link rel="stylesheet" href="/static/s.css">
+{% endblock %}
+{% block content %}
+
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Available Products</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <div class="form-group">
+                            {% if status == -1 %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+
+                            {% if status == 1 %}
+                            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+
+                        </div>
+                        <table id="stock" class="table table-hover text-nowrap" >
+                            <thead>
+                                <tr>
+
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category Type</th>
+                                    <th>Quantity</th>
+                                    <th>Manufacturing Date</th>
+                                    <th>Expiry Date</th>
+                                    <th>Batch No.</th>
+                                    <th>Rate</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in op %}
+                                <tr style="line-height: 20px;">
+                                    <td>{{ t.prod_id }}</td>
+                                    <td>{{ t.prod_name }}</td>
+                                    <td>{{ t.prod_type }}</td>
+                                    <td>{{ t.quantity }} {{ t.unit }}</td>
+                                    <td>{{ t.man_date }}</td>
+                                    <td>{{ t.exp_date }}</td>
+                                    <td>{{ t.batch_no }}</td>
+                                    <td>{{ t.rate }}/-</td>
+                                    <td style="margin-left:0px; margin-right:0px;"><a href='/update/id={{t.prod_id}}' class="btn btn-success btn-sm">Update</a>
+                                    <td style="margin-left:0px; margin-right:0px;"><a href='/delete/id={{t.prod_id}}' class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<a href="/add_product" class="btn btn-danger">ADD PRODUCT</a>
+
+<button onclick="exportData()" class="btn btn-info" >DOWNLOAD</button>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- /.content -->
+{% endblock %}

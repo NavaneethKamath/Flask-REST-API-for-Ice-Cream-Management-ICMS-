@@ -1,0 +1,73 @@
+{% extends "layout2.html" %}
+{% block head %}
+{{ super() }}
+<title> My Orders </title>
+
+<link rel="stylesheet" href="/static/s.css">
+{% endblock %}
+{% block user %}
+{% if user %}
+<li><a href="/user/id={{email}}"> Hello, {{user}} </a></li>
+
+{% else %}
+<li><a href="/login"> Login </a></li>
+
+{% endif %}
+{% endblock %}
+
+{% block log %}
+{% if user %}
+<li><a href="/myorders"> My Orders </a></li>
+<li><a href="/logout"> Logout </a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Orders</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table id="orders" class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Invoice Number</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Total Amount</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in orders %}
+
+                                <tr style="line-height: 20px;">
+                                    <td>{{ t.invoice_no }}</td>
+                                    <td>{{ t.date }}</td>
+                                    <td>{{ t.time }}</td>
+                                    <td>{{ t.p_name }}</td>
+                                    <td>{{ t.quantity }}</td>
+                                    <td>{{ t.amount }}/-</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+{% endblock %}

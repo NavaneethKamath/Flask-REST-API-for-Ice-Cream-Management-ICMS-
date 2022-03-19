@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<title> Orders </title>
+<script>
+    function exportData() {
+        var table = document.getElementById("order");
+        var rows = [];
+
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            column1 = row.cells[0].innerText;
+            column2 = row.cells[1].innerText;
+            column3 = row.cells[2].innerText;
+            column4 = row.cells[3].innerText;
+            column5 = row.cells[4].innerText;
+            column6 = row.cells[5].innerText;
+            column7 = row.cells[6].innerText;
+            column8 = row.cells[7].innerText;
+            rows.push(
+                [
+                    column1,
+                    column2,
+                    column3,
+                    column4,
+                    column5,
+                    column6,
+                    column7,
+                    column8
+                ]
+            );
+
+        }
+        csvContent = "data:text/csv;charset=utf-8,";
+        rows.forEach(function (rowArray) {
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "orders.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+<link rel="stylesheet" href="/static/s.css">
+{% endblock %}
+{% block content %}
+
+
+<!-- Main content -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Customer Orders</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        
+                        <table id="order" class="table table-hover text-nowrap" >
+                            <thead>
+                                <tr>
+
+                                    <th>Invoice No.</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Customer ID</th>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in orders %}
+                                <tr style="line-height: 20px;">
+                                    <td>{{ t.invoice_no }}</td>
+                                    <td>{{ t.date }}</td>
+                                    <td>{{ t.time }}</td>
+                                    <td>{{ t.c_id }}</td>
+                                    <td>{{ t.p_id }}</td>
+                                    <td>{{ t.p_name }}</td>
+                                    <td>{{ t.quantity }}</td>
+                                    <td>{{ t.amount }}/-</td>
+                                    
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<button onclick="exportData()" class="btn btn-info" >DOWNLOAD</button>
+
+
+<!-- /.content -->
+{% endblock %}
