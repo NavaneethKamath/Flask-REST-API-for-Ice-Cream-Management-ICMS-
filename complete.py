@@ -1,6 +1,8 @@
 from cassandra import cluster
 from cassandra.cluster import Cluster
+from markupsafe import escape
 from flask import *
+from markupsafe import escape
 from flask_mail import *
 
 from werkzeug.utils import secure_filename
