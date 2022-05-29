@@ -2,7 +2,7 @@ from cassandra import cluster
 from cassandra.cluster import Cluster
 from flask import *
 from flask_mail import *
-from flask_bootstrap import Bootstrap
+
 from werkzeug.utils import secure_filename
 from setting import cassandra_connect
 import os
@@ -12,14 +12,17 @@ from werkzeug.utils import secure_filename
 from datetime import date
 from datetime import datetime
 
+def retpass():
+    return "Jnnce@ICMS@123"
+
 app = Flask(__name__)
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'cn754879@gmail.com'
-app.config['MAIL_PASSWORD'] = 'banve12kmt'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-Bootstrap(app)
+app.config['MAIL_SERVER']='smtp.office365.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'no-reply_icms@outlook.com'
+app.config['MAIL_PASSWORD'] = retpass()
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
 
 
 mail = Mail(app)
